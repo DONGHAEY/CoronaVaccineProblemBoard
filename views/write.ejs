@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+</head>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form {
+        display: flex;
+    }
+
+    #title {
+        width: 400px;
+        height:40px;
+    }
+    #content {
+        width: 400px;
+        height: 500px;
+    }
+
+</style>
+<body>
+    <h1>게시판에 글쓰기</h1>
+    <form method="post" action="/addIssue">
+        <div class="form">
+            <input id="title" type="text" name="topic" placeholder="제목을 입력해주세요" />
+        </div>
+        <div>
+            <input id="content" type="text" name="content" placeholder="주 내용을 입력해주십시오" />
+        </div>
+        <input type="submit" />
+    </form>
+</body>
+</html>

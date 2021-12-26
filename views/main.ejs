@@ -1,0 +1,27 @@
+<!DOCTYPE ejs>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./content.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%= data %></h1>
+    <button id="write">글쓰기</button>
+    <ul>
+        <% for(var i=0; i<result.length; i++){ %>
+            <li>
+                <a href="<%= '/LIST/' + result[i].id %>"><%= result[i].topic %></a>
+            </li>
+        <% } %>
+    </ul>
+</body>
+<script>
+    const btn = document.querySelector("#write")
+    btn.addEventListener("click", function() {
+        location.href = "/addIssue"
+    })
+</script>
+</html>
