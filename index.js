@@ -6,6 +6,7 @@ const express = require("express")
 const mysql = require("mysql")
 const bcrypt = require("bcrypt")
 const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken")
 // const fs = require("fs")
 
 const saltRounds = 10
@@ -24,6 +25,7 @@ db.connect(err => {
     console.log("DB is connected")
 })
 
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -33,24 +35,63 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 app.engine('html', require('ejs').renderFile)
 
-
 function dontCare(res) {
     res.render("wrong_access")
 }
 
+function Auth(token, cb) {
+    const id = jwt.decode(token, "NOVACCINE")
+    console.log(id)
+    const sql2 = `SELECT * FROM USER WHERE id='${id}' AND token='${token}'`
+    db.query(sql2, (err, result, fields) => {
+        if (err) throw err
+        console.log(result)
+        if(result.length !== 0) {
+            cb(true, result[0]);
+        } else {
+            cb(false);
+        }
+    })
+}
 
 app.get('/', (req, res) => {
-    res.render("main")
+    const key = req.cookies.auth;
+    Auth(key, (is, user) => {
+        if(is === true) {
+            res.render("main", {
+                link:"/logout",
+                text:"로그아웃",
+                greeting : `${user.userName}님 어서오세요`
+            })
+        } else {
+            res.render("main", {
+                link:"/login",
+                text:"로그인/가입",
+                greeting : `간단가입하셔서 여러 글을 쓰세요!`
+            })
+        }
+    })
 })
 
 app.get('/list', (req, res) => {
     const sql = `SELECT * FROM post`
     db.query(sql, function (err, result, fields) {
         if(err) throw err
-        res.render("list", {
-            result:result
-        })
+        if(result.length !== 0) {
+            res.render("list", {
+                result:result
+            })
+        } else {
+            dontCare(res)
+        }
     })
+})
+
+app.get('/logout', (req, res) => {
+    const token = req.cookies.auth
+    const sql = `UPDATE USER SET token='' WHERE token = '${token}'`
+    db.query(sql)
+    res.redirect("/")
 })
 
 app.get('/addIssue', (req, res) => {
@@ -61,14 +102,28 @@ app.get('/login', (req, res) => {
     res.render("login")
 })
 
+app.get('/register' ,(req, res) => [
+    res.render("register")
+])
+
 app.post('/addIssue', (req, res) => {
+    const r =req.cookies;
+    const token = r.auth;
+
     const topic = req.body.topic
     const content = req.body.content
-    const sql = `INSERT INTO post (topic, content, date) VALUES ('${topic}', '${content}', now())`
-    db.query(sql, function (err, result, fields) {
-        if (err) throw err
-        res.redirect(`/list/${result.insertId}`)
-    });
+
+    Auth(token, (is, user)=> {
+        if(is === true ) {
+            const sql = `INSERT INTO post (topic, content, userName, date) VALUES ('${topic}', '${content}', '${user.userName}', now())`
+            db.query(sql, function (err, result, fields) {
+                if (err) throw err
+                res.redirect(`/list/${result.insertId}`)
+            });
+        } else {
+            res.redirect('/login')
+        }
+    })
 })
 
 app.post('/login', (req, res) => {
@@ -81,9 +136,10 @@ app.post('/login', (req, res) => {
         bcrypt.compare(ps, comparePs, (err, isMatch) => {
             if(err) throw err
             if(isMatch == true) {
-                res.json({
-                    isSuccess : true
-                }).cookie("auth", "dd")
+                const token = jwt.sign(id, 'NOVACCINE')
+                const sql2 = `UPDATE USER SET token='${token}' WHERE id = '${id}'`
+                db.query(sql2)
+                res.cookie("auth", token).redirect("/")
             } else {
                 res.json({
                     isSuccess : false
@@ -103,9 +159,7 @@ app.post('/register', (req, res) => {
             if(err) throw err //만약 에러가 있따면 err을 주고 넘어가라
             const sql = `INSERT INTO USER (id, password, userName) VALUES ('${id}', '${hash}', '${name}')`
             db.query(sql)
-            res.json({
-                isSuccess : true
-            })
+            res.redirect("/")
         })
     })
 })
@@ -122,7 +176,8 @@ app.get('/list/:where', (req, res) => {
             res.render("content", {
                 title : content.topic,
                 content : content.content,
-                views : content.views
+                views : content.views,
+                who : content.userName
             })
         } else {
             dontCare(res)

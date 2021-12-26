@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./content.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -54,21 +53,18 @@
         <p class="sub">여러분들의 이야기를 알려주어 이 문제해결에 동참하세요</p>
         <button id="write" class="write">글쓰기</button>
         <button id="write" class="list">사례 확인 하기</button>
-        <button id="write" class="register">가입하기</button>
+        <button id="write" onclick="location.href='<%= link %>'  " class="register"><%= text %></button>
+        <p style="color: azure; font-weight: bold;"><%= greeting %></p>
 </body>
 <script>
     const btn = document.querySelector(".write")
     const btn2 = document.querySelector(".list")
-    const btn3 = document.querySelector(".register")
 
     btn.addEventListener("click", function() {
         location.href = "/addIssue"
     })
     btn2.addEventListener("click", function() {
         location.href = "/list"
-    })
-    btn3.addEventListener("click", function() {
-        location.href = "/register"
     })
 </script>
 </html>

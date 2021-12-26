@@ -2,18 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./content.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-    @font-face {
-    font-family: 'GmarketSansBold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+@font-face {
+    font-family: 'GmarketSansLight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-  }
+}
     body {
         display: flex;
         flex-direction: column;
@@ -27,11 +26,12 @@
     }
 </style>
 <body>
-        <button id="write">글쓰기</button>
-    <ul style="list-style: none;">
+    <button id="write">글쓰기</button>
+    <button id="write">내가 쓴 글 보기</button>
+    <ul style="list-style: none; padding-left: 0%;">
         <% for(var i=0; i<result.length; i++){ %>
-            <li>
-                <a href="<%= '/list/' + result[i].id %>"><%= result[i].topic %></a>
+            <li style="padding: 3px;">
+                <a href="<%= '/list/' + result[i].id %>" style=" color:whitesmoke;text-decoration: none; font-weight: bolder;font-family: 'GmarketSansLight';"><%= result[i].topic %></a>
             </li>
         <% } %>
     </ul>
