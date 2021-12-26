@@ -1,0 +1,45 @@
+<!DOCTYPE ejs>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./content.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    @font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-image: url("https://www.korea.kr/newsWeb/resources/attaches/2021.05/20/0044004400044.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+<body>
+        <button id="write">글쓰기</button>
+    <ul style="list-style: none;">
+        <% for(var i=0; i<result.length; i++){ %>
+            <li>
+                <a href="<%= '/list/' + result[i].id %>"><%= result[i].topic %></a>
+            </li>
+        <% } %>
+    </ul>
+</body>
+<script>
+    const btn = document.querySelector("#write")
+    btn.addEventListener("click", function() {
+        location.href = "/addIssue"
+    })
+</script>
+</html>

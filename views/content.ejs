@@ -7,9 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
 <body>
-    <h1><%= title %></h1>
-    <p><%= content %></p>
+    <h1><%= title %></h1> <h5>게시자 : </h5>
+    <div style="max-width: 500px;">
+        <p><%= content %></p>
+    </div>
     <h5><%= '조회수 ' + views %></h5>
 </body>
 </html>

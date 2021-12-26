@@ -7,21 +7,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    @font-face {
+    font-family: 'GmarketSansBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-image: url("https://www.korea.kr/newsWeb/resources/attaches/2021.05/20/0044004400044.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #write {
+        width:250px;
+        margin-bottom: 10px;
+    }
+    .title {
+        color: ghostwhite; 
+        font-size: 35px; 
+        margin-top:150px; 
+        font-family: 'GmarketSansBold';
+    }
+    .sub {
+        margin-top: -20px; font-weight: bold; color: ghostwhite;
+    }
+    .logo {
+        color: hotpink;
+    }
+    .logosub {
+        margin-top: -20px;
+        font-size: 12px;
+        color: darkgrey;
+    }
+</style>
 <body>
-    <h1><%= data %></h1>
-    <button id="write">글쓰기</button>
-    <ul>
-        <% for(var i=0; i<result.length; i++){ %>
-            <li>
-                <a href="<%= '/LIST/' + result[i].id %>"><%= result[i].topic %></a>
-            </li>
-        <% } %>
-    </ul>
+        <h1 class="logo">VACCINE</h1>
+        <p class="logosub">anyone doesn't want it</p>
+        <h1 class="title">코로나 백신으로 인한<br>우려를 표하는 곳 입니다</h1>
+        <p class="sub">여러분들의 이야기를 알려주어 이 문제해결에 동참하세요</p>
+        <button id="write" class="write">글쓰기</button>
+        <button id="write" class="list">사례 확인 하기</button>
+        <button id="write" class="register">가입하기</button>
 </body>
 <script>
-    const btn = document.querySelector("#write")
+    const btn = document.querySelector(".write")
+    const btn2 = document.querySelector(".list")
+    const btn3 = document.querySelector(".register")
+
     btn.addEventListener("click", function() {
         location.href = "/addIssue"
+    })
+    btn2.addEventListener("click", function() {
+        location.href = "/list"
+    })
+    btn3.addEventListener("click", function() {
+        location.href = "/register"
     })
 </script>
 </html>
