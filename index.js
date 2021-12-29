@@ -20,12 +20,6 @@ const db = mysql.createConnection({
     database: "sys"
 })
 
-db.connect(err => {
-    if (err) throw err;
-    console.log("DB is connected")
-})
-
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -102,9 +96,15 @@ app.get('/login', (req, res) => {
     res.render("login")
 })
 
-app.get('/register' ,(req, res) => [
+app.get('/register' ,(req, res) => {
     res.render("register")
-])
+})
+
+app.get("/test", (req, res) => {
+    res.render("gogo", {
+        hello:'It\'s header '
+    })
+})
 
 app.post('/addIssue', (req, res) => {
     const r =req.cookies;
@@ -183,6 +183,11 @@ app.get('/list/:where', (req, res) => {
             dontCare(res)
         }
     });
+})
+
+db.connect(err => {
+    if (err) throw err;
+    console.log("DB is connected")
 })
 
 app.listen(Port, () => {

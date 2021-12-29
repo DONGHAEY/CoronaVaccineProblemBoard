@@ -30,8 +30,9 @@
     <button id="write">내가 쓴 글 보기</button>
     <ul style="list-style: none; padding-left: 0%;">
         <% for(var i=0; i<result.length; i++){ %>
-            <li style="padding: 3px;">
-                <a href="<%= '/list/' + result[i].id %>" style=" color:whitesmoke;text-decoration: none; font-weight: bolder;font-family: 'GmarketSansLight';"><%= result[i].topic %></a>
+            <li onclick="location.href='/list/<%=result[i].id %>' "  style="background-color: gray; margin-bottom: 20px; width: 500px; text-align: left; padding-left: 15px; border-radius: 3rem; opacity: 80%;">
+                <a style=" color:whitesmoke;text-decoration: none; font-weight: bolder;font-family: 'GmarketSansLight';"><%= result[i].topic %></a>
+                <p style="display: inline-flex; color: azure;"> | <%= result[i].views %>회</p>
             </li>
         <% } %>
     </ul>
