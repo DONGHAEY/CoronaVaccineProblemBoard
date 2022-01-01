@@ -17,10 +17,11 @@
 </style>
 
 <body>
-    <h1><%= title %></h1> <h5>게시자 : <%= who %></h5>
+    <h1><%= title %></h1> <h5>게시자 : <%= who %> | 카테고리 : <%= type %></h5>
     <div style="max-width: 500px;">
         <p><%= content %></p>
     </div>
-    <h5><%= '조회수 ' + views %></h5>
+    <h5>조회수 <%= views %> | 게시일 <%= date %></h5>
+    <button onclick="location.href='/list' ">돌아가기</button>
 </body>
 </html>

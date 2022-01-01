@@ -13,30 +13,63 @@
     font-weight: normal;
     font-style: normal;
 }
-    body {
+    .body {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         text-align: center;
-        background-image: url("https://www.korea.kr/newsWeb/resources/attaches/2021.05/20/0044004400044.jpg");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
+    }
+    #write {
+        width: 120px;
+        height: 30px;
+        border:0;
+        border-radius: 30px;
+    }
+    .d {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    .d:hover {
+        height:30px;
+        border-radius: 30px;
+        background-color: white;
     }
 </style>
 <body>
-    <button id="write">글쓰기</button>
-    <button id="write">내가 쓴 글 보기</button>
-    <ul style="list-style: none; padding-left: 0%;">
-        <% for(var i=0; i<result.length; i++){ %>
-            <li onclick="location.href='/list/<%=result[i].id %>' "  style="background-color: gray; margin-bottom: 20px; width: 500px; text-align: left; padding-left: 15px; border-radius: 3rem; opacity: 80%;">
-                <a style=" color:whitesmoke;text-decoration: none; font-weight: bolder;font-family: 'GmarketSansLight';"><%= result[i].topic %></a>
-                <p style="display: inline-flex; color: azure;"> | <%= result[i].views %>회</p>
-            </li>
-        <% } %>
-    </ul>
+    <header><%- include('head.ejs') %></header>
+    <div class="body">
+        <br>
+        <div style="background-color: gainsboro; width: 200px; height: 500px; display:flex; margin-right: 100px; justify-content: center; align-items: center;">
+            <ul style="list-style: none; padding-left: 0; display: flex;flex-direction: column;">
+                <button id="write" class="d">나도 제보하기</button>
+                <button id="write" class="d">내가 쓴 글 보기</button>
+                <li class="d" onclick="location.href = '/type/0/' ">전체</li>
+                <li class="d" onclick="location.href = '/type/1/' ">화이자</li>
+                <li class="d" onclick="location.href = '/type/2/' ">모더나</li>
+                <li class="d" onclick="location.href = '/type/3/' ">얀센</li>
+                <li class="d" onclick="location.href = '/type/4/' ">아스트라제네카</li>
+                <li class="d" onclick="location.href = '/type/5/' ">기타백신</li>
+            </ul>
+        </div>
+        <div>
+            <h1><%= t %></h1>
+            <ul style="list-style: none; padding-left: 0%;">
+                <% for(var i=0; i<result.length; i++){ %>
+                    <li onclick="location.href='/list/<%=result[i].id %>' "  style="background-color: darkgray; margin-bottom: 10px; width: 1000px; height:55px; text-align: left; padding-left: 15px; border-radius: 0; opacity: 80%;">
+                        <a style=" color:whitesmoke;text-decoration: none; font-weight: bolder;font-family: 'GmarketSansLight';"><%= result[i].topic %></a>
+                        <p style="display: inline-flex; color: azure;"> | <%= result[i].views %>회</p>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
 </body>
+<footer class="footer"><div style="color:gainsboro; display: flex; flex-direction: column; justify-content: center; align-items: center; background: gray; height: 120px;">
+    <p>Copyright 2021. report all rights reserved.</p>
+    <p>이 페이지는 코로나 백신의 문제를 제기 하기 위해 만들어졌습니다</p>
+</div></footer>
+
 <script>
     const btn = document.querySelector("#write")
     btn.addEventListener("click", function() {

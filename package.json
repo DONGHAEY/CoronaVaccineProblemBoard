@@ -1,13 +1,19 @@
 {
   "dependencies": {
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
+    "google-news-scraper": "^1.0.8",
     "html": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.15",
+    "mongoose": "^6.1.4",
     "multer": "^1.4.4",
     "mysql": "^2.18.1",
-    "typeorm": "^0.2.41"
+    "node-schedule": "^2.1.0",
+    "typeorm": "^0.2.41",
+    "xml-js": "^1.6.11"
   }
 }

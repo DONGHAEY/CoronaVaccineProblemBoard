@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .box {
+        width: 800px;
+        height: 150px;
+        background-color: whitesmoke;
+        border-radius: 30px;
+    }
+    #line {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    #line > h3 {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .d {
+        color: red;
+    }
+</style>
+<body>
+    <header><%- include('head.ejs') %></header>
+    <div class="body">
+        <h1>국내 백신 접종 현황 판</h1>
+        <h2>(실시간)</h2>
+        <div class="box">
+            <h2>국내 총 접종</h2>
+            <div id="line">
+                <h3>1차 <%= item[2].firstCnt._text %>명</h3>
+                <h3>2차 <%= item[2].secondCnt._text %>명</h3>
+                <h3>3차 <%= item[2].thirdCnt._text %>명</h3>
+            </div>
+        </div>
+        <br>
+        <div class="box">
+            <h2>오늘 접종</h2>
+            <div id="line">
+                <h3 class="d">1차 <%= item[0].firstCnt._text %>명 ▲</h3>
+                <h3 class="d">2차 <%= item[0].secondCnt._text %>명 ▲</h3>
+                <h3 class="d">3차 <%= item[0].thirdCnt._text %>명 ▲</h3>
+            </div>
+        </div>
+        <br>
+        <div class="box">
+            <h2>오늘 전국 확진자</h2>
+            <h3><%= corona[0].defCnt %>명으로 집계됩니다</h3>
+        </div>
+    </div>
+    <footer class="footer"><div style="color:gainsboro; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: gray;">
+        <p>Copyright 2021. report all rights reserved.</p>
+        <p>이 페이지는 코로나 백신의 문제를 제기 하기 위해 만들어졌습니다</p>
+    </div></footer>
+</body>
+</html>

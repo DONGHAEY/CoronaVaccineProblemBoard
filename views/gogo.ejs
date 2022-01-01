@@ -6,8 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    #container {
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .do {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    article {
+            width:300px;
+            height:430px;
+            margin:10px;
+            padding:20px;
+            border-radius: 20px;
+            background-color: white;
+        }
+        article:hover {
+            background-color: whitesmoke;
+        }
+        article>img {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+        }
+        
+</style>
 <body>
     <header><%- include('head.ejs') %></header>
-    <h1>content</h1>
+    <br><br>
+    <div class="do">
+        <h1><%= date.getFullYear()%>년 <%= date.getMonth()+1 %>월 <%= date.getDate() %>일 기사입니다</h1>
+        <p style="margin-top: -10px;">기사는 매일 정오에 새로 업로드 됩니다</p>
+
+    <section id="container">
+            <% for (var i=0; i<4; i++){ %>
+                <article onclick="location.href = '<%= data[i].link %>' ">
+                    <img src="<%= data[i].image %>">
+                    <h3><%= data[i].title %></h3>
+                    <p>source:<%= data[i].source %></p>
+                </article>
+            <% } %>
+    </section>
+    <button style="border-radius: 30px; border:0" onclick="">관련기사 더 찾아보기</button>
+    <br>
+</div>
+<footer class="footer"><div style="color:gainsboro; display: flex; flex-direction: column; justify-content: center; align-items: center; background: gray; height: 120px;">
+    <p>Copyright 2021. report all rights reserved.</p>
+    <p>이 페이지는 코로나 백신의 문제를 제기 하기 위해 만들어졌습니다</p>
+</div></footer>
 </body>
 </html>
